@@ -14,7 +14,13 @@ repos:
     hooks:
       - id: flake8
 
-  # - repo: https://github.com/sagarsakharkar14/Industry_oriented_Python_dev_guide.git 
-  #   rev: v7.4.0
-  #   hooks:
-  #     - id: pytest
+# repos:
+#   - repo: local
+#     hooks:
+#       - id: pytest-check
+#         name: Run Pytest
+#         entry: pytest
+#         language: system
+#         types: [python]
+#         pass_filenames: false
+#         always_run: true
