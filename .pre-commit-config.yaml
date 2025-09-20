@@ -13,3 +13,8 @@ repos:
     rev: 6.1.0
     hooks:
       - id: flake8
+
+  # - repo: https://github.com/sagarsakharkar14/Industry_oriented_Python_dev_guide.git 
+  #   rev: v7.4.0
+  #   hooks:
+  #     - id: pytest

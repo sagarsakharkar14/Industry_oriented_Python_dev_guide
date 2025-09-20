@@ -1,0 +1,76 @@
+🗂️ Sample Repo Structure: python-dev-practice
+python-dev-practice/
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   └── helpers.py
+│   └── services/
+│       ├── __init__.py
+│       └── processor.py
+├── tests/
+│   ├── __init__.py
+│   └── test_processor.py
+├── .pre-commit-config.yaml
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── setup.cfg
+
+
+
+🔍 Breakdown of Each Component
+✅ src/
+Your main application code lives here.
+- main.py: Entry point of your script or app.
+- utils/: Reusable helper functions (e.g., logging, formatting).
+- services/: Core business logic or modules (e.g., data processing, API calls).
+Modular folders like utils and services keep your code clean and testable.
+
+
+✅ tests/
+Unit tests go here, using pytest.
+- test_processor.py: Tests for processor.py
+- Use fixtures and mocks to simulate real-world scenarios.
+
+✅ .pre-commit-config.yaml
+Defines hooks for formatting and linting. You’ve already set this up in Chapter 1.
+
+✅ requirements.txt
+Lists all dependencies. Use pip freeze > requirements.txt to generate it.
+
+✅ README.md
+Your project’s front page. Include:
+- Project overview
+- Setup instructions
+- Usage examples
+- Folder structure
+- Contribution guidelines (optional)
+
+✅ .gitignore
+Ignore files like:
+env/
+__pycache__/
+*.pyc
+*.log
+
+
+
+✅ setup.cfg (Optional but Pro-Level)
+Central config for tools like flake8, black, isort, and pytest.
+[flake8]
+max-line-length = 88
+exclude = env, __pycache__
+
+[isort]
+profile = black
+
+[tool:pytest]
+testpaths = tests
+
+
+
+🛠️ Your Task
+Create this structure inside your python-dev-practice repo. You can start by writing a simple function in processor.py and test it in test_processor.py.
+Once you’ve got this skeleton in place, we’ll move to Chapter 3: Writing Modular, Testable Code—where we build real logic and automate it.

@@ -1,0 +1,86 @@
+🧱 Chapter 1: Environment Setup Like a Pro
+🔹 1. Create a Virtual Environment
+This isolates dependencies so your project doesn’t conflict with others.
+# Create a virtual environment
+python -m venv env
+
+# Activate it (Windows)
+env\Scripts\activate
+
+# Activate it (Linux/macOS)
+source env/bin/activate
+
+
+✅ Tip: Always activate your environment before installing packages or running code.
+
+
+🔹 2. Install Essential Developer Tools
+pip install black isort flake8 pre-commit
+
+
+These tools help enforce code quality and formatting:
+- black: auto-formats your code
+- isort: organizes imports
+- flake8: checks for syntax and style issues
+- pre-commit: runs checks before every commit
+
+🔹 3. Set Up pre-commit Hooks
+Create a .pre-commit-config.yaml file:
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+
+
+Then run:
+pre-commit install
+
+
+✅ Now every time you commit, these checks will run automatically.
+
+
+🔹 4. Create a requirements.txt
+pip freeze > requirements.txt
+
+
+This file lists all dependencies—critical for deployment and collaboration.
+
+🔹 5. Initialize Git & Push to GitHub
+git init
+git add .
+git commit -m "Initial commit"
+
+
+Then create a GitHub repo and push your code:
+git remote add origin https://github.com/your-username/your-repo.git
+git push -u origin main
+
+
+
+🔹 6. Optional: VS Code Setup
+- Install extensions: Python, Pylance, GitLens
+- Configure settings.json:
+{
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true
+}
+
+
+
+✅ Your Task
+Create a folder called python-dev-practice, set up the environment, install tools, and push it to GitHub. I’ll help you polish the README and structure next.
+Ready to move to Chapter 2: Project Structure & Modular Design once you’ve done this. Want me to walk you through a sample repo structure next?
+
+
+

@@ -1,0 +1,78 @@
+🧱 Chapter 2: Project Structure & Modular Design
+🎯 Goal
+Build a clean, modular Python project that’s easy to maintain, test, and extend. This structure works whether you're building a CLI tool, automation script, or backend service.
+
+🗂️ Recommended Folder Layout
+python-dev-practice/
+├── src/                    # Core application code
+│   ├── __init__.py
+│   ├── main.py             # Entry point
+│   ├── utils/              # Helper functions
+│   │   ├── __init__.py
+│   │   └── helpers.py
+│   └── services/           # Business logic
+│       ├── __init__.py
+│       └── processor.py
+├── tests/                  # Unit tests
+│   ├── __init__.py
+│   └── test_processor.py
+├── .pre-commit-config.yaml
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── setup.cfg               # Tool configs (optional)
+
+
+
+🧩 Modular Design Principles
+✅ 1. Separation of Concerns
+- main.py: Orchestrates the flow (e.g., CLI or script entry)
+- services/: Contains core logic (e.g., data processing, API calls)
+- utils/: Contains reusable helpers (e.g., logging, formatting)
+This makes your code easier to test, debug, and reuse.
+
+
+✅ 2. Use __init__.py for Package Recognition
+- Allows folders like utils and services to be imported as modules.
+- Keeps your project compatible with tools like pytest, mypy, and setuptools.
+
+✅ 3. Testing Strategy
+- Use pytest for writing tests in the tests/ folder.
+- Mirror your src/ structure so each module has a corresponding test file.
+Example:
+# tests/test_processor.py
+from src.services.processor import process_data
+
+def test_process_data():
+    assert process_data([1, 2, 3]) == [2, 4, 6]
+
+
+
+✅ 4. Tooling Configs
+Use setup.cfg to centralize config for tools like flake8, black, pytest, etc.
+[flake8]
+max-line-length = 88
+exclude = env, __pycache__
+
+[isort]
+profile = black
+
+[tool:pytest]
+testpaths = tests
+
+
+
+✅ 5. README.md Best Practices
+Include:
+- Project overview
+- Setup instructions
+- Folder structure
+- Usage examples
+- Contribution guidelines (optional)
+
+🛠️ Your Task
+- Create this folder structure in your python-dev-practice repo.
+- Add a sample function in processor.py (e.g., double a list of numbers).
+- Write a test for it in test_processor.py.
+- Push it to GitHub.
+Once you’ve done that, we’ll move to Chapter 3: Writing Modular, Testable Code—where we build real logic and automate it.
