@@ -1,0 +1,74 @@
+🧱 Chapter 3: Writing Modular, Testable Code
+🎯 Goal
+Build a reusable Python module that performs a real-world task, and write a test suite to validate it. We'll start with a simple data processing example and layer in automation later.
+
+🧩 Step 1: Write a Modular Function
+Let’s say we want to process a list of numbers—doubling each value and filtering out odd results.
+📁 src/services/processor.py
+def process_data(data: list[int]) -> list[int]:
+    """
+    Doubles each number in the list and returns only even results.
+    """
+    return [x * 2 for x in data if (x * 2) % 2 == 0]
+
+
+✅ This function is clean, testable, and documented. You can later expand it to handle files, APIs, or databases.
+
+
+🧪 Step 2: Write a Unit Test
+📁 tests/test_processor.py
+from src.services.processor import process_data
+
+def test_process_data_basic():
+    input_data = [1, 2, 3, 4]
+    expected = [4, 8]  # Only 2 and 4 doubled are even
+    assert process_data(input_data) == expected
+
+def test_process_data_empty():
+    assert process_data([]) == []
+
+def test_process_data_all_odd():
+    assert process_data([1, 3, 5]) == []
+
+
+✅ These tests cover normal, edge, and empty cases. You can run them with pytest.
+
+
+⚙️ Step 3: Automate Testing with pre-commit
+Add this to your .pre-commit-config.yaml to run tests before every commit:
+- repo: https://github.com/pre-commit/mirrors-pytest
+  rev: v7.4.0
+  hooks:
+    - id: pytest
+
+
+Then run:
+pre-commit install
+
+
+Now every commit will run your tests automatically.
+
+🛠️ Optional: Add Logging
+📁 src/utils/helpers.py
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+def log(message: str):
+    logging.info(message)
+
+
+Use it in processor.py:
+from src.utils.helpers import log
+
+def process_data(data: list[int]) -> list[int]:
+    log(f"Processing data: {data}")
+    return [x * 2 for x in data if (x * 2) % 2 == 0]
+
+
+
+✅ Your Task
+- Add the process_data function and its tests.
+- Run pytest to verify everything works.
+- Push your changes to GitHub.
+Once you’re done, we’ll move to Chapter 4: Real-World Automation—where we build a CLI tool or schedule this logic using GitHub Actions or cron.
