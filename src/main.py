@@ -5,7 +5,7 @@
 
 import argparse
 
-from services.billing import apply_billing
+from src.billing_tool.billing import apply_billing
 
 
 def main():

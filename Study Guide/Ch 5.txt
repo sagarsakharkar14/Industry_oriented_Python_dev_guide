@@ -1,0 +1,95 @@
+Chapter 5: Packaging & Deployment, where your Python project becomes a tool others can install, run, or integrate just like any professional library or API. This is the bridge between “I built something cool” and “others can use it too.”
+
+📦 Chapter 5: Packaging & Deployment
+🎯 Goal
+Turn your Python script into a distributable package or deployable API, so it can be installed via pip, run as a CLI tool, or served as a web service.
+
+🧱 Option A: Package as a CLI Tool (Installable via pip)
+✅ 1. Restructure Your Project
+python-dev-practice/
+├── billing_tool/
+│   ├── __init__.py
+│   ├── cli.py
+│   └── billing.py
+├── tests/
+├── setup.py
+├── README.md
+├── requirements.txt
+└── .gitignore
+
+
+✅ 2. Add CLI Entry Point
+📁 billing_tool/cli.py
+import argparse
+from billing_tool.billing import apply_billing
+
+def main():
+    parser = argparse.ArgumentParser(description="Automate tenant billing")
+    parser.add_argument("file", help="Path to Excel file")
+    args = parser.parse_args()
+    apply_billing(args.file)
+
+
+✅ 3. Create setup.py
+from setuptools import setup, find_packages
+
+setup(
+    name="billing_tool",
+    version="0.1.0",
+    packages=find_packages(),
+    install_requires=["openpyxl"],
+    entry_points={
+        "console_scripts": [
+            "billing-tool=billing_tool.cli:main"
+        ]
+    },
+)
+
+
+Now you can install it locally:
+pip install .
+billing-tool data/tenants.xlsx
+
+
+✅ This turns your script into a command-line tool anyone can run after installing.
+
+
+🌐 Option B: Deploy as a REST API (Using FastAPI)
+✅ 1. Install FastAPI & Uvicorn
+pip install fastapi uvicorn
+
+
+✅ 2. Create API Endpoint
+📁 billing_tool/api.py
+from fastapi import FastAPI
+from billing_tool.billing import apply_billing
+
+app = FastAPI()
+
+@app.post("/run-billing/")
+def run_billing(file_path: str):
+    apply_billing(file_path)
+    return {"status": "success", "file": file_path}
+
+
+✅ 3. Run the API
+uvicorn billing_tool.api:app --reload
+
+
+Visit: http://127.0.0.1:8000/docs for interactive Swagger UI.
+
+🚀 Option C: Publish to PyPI (Optional)
+Once polished, you can publish your package to PyPI so others can install it via:
+pip install billing-tool
+
+
+You’ll need:
+- setup.py
+- README.md
+- LICENSE
+- twine for uploading
+
+✅ Your Task
+- Choose CLI or API packaging
+- Refactor your code into a package structure
+- Add setup.py and test local installation or API deployment

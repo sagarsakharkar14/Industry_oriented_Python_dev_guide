@@ -12,6 +12,8 @@ def apply_billing(file_path: str):
         total = rent + utilities
         row[3].value = total
 
-        if total < 10000:
-            row[3].fill = PatternFill(start_color="FFC7CE", fill_type="solid")
+        if total < 15000:
+            row[3].fill = PatternFill(start_color="E45A92", fill_type="solid")
+        if total >= 15000:
+            row[3].fill = PatternFill(start_color="A8FBD3", fill_type="solid")
         wb.save(file_path)

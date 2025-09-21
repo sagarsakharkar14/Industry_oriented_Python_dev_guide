@@ -1,0 +1,19 @@
+name: Weekly Billing
+
+on:
+  schedule:
+    - cron: '0 9 * * MON'  # Every Monday at 9 AM
+
+jobs:
+  run-billing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13.7'
+      - name: Install dependencies
+        run: pip install openpyxl
+      - name: Run billing
+        run: python src/main.py data/tenants.xlsx
