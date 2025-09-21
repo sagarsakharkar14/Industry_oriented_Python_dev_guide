@@ -1,0 +1,94 @@
+⚙️ Chapter 4: Real-World Automation
+🎯 Goal
+Use Python to automate a real-world task, then schedule or trigger it using industry-standard tools like CLI, cron, or GitHub Actions.
+
+🧪 Use Case: Automate Excel Billing (Your Past Project)
+Let’s take your tenant billing logic and turn it into a fully automated script that:
+- Reads tenant data from Excel
+- Applies billing logic (e.g., rent, utilities, late fees)
+- Formats the sheet (colors, protection)
+- Saves and optionally emails the file
+
+🧱 Step 1: Modular Script Structure
+📁 src/services/billing.py
+import openpyxl
+from openpyxl.styles import PatternFill
+
+def apply_billing(file_path: str):
+    wb = openpyxl.load_workbook(file_path)
+    sheet = wb.active
+
+    for row in sheet.iter_rows(min_row=2, values_only=False):
+        rent = row[1].value
+        utilities = row[2].value
+        total = rent + utilities
+        row[3].value = total
+
+        # Conditional formatting
+        if total > 10000:
+            row[3].fill = PatternFill(start_color="FFC7CE", fill_type="solid")
+
+    wb.save(file_path)
+
+
+✅ This script reads, calculates, formats, and saves—all in one go.
+
+
+🧪 Step 2: CLI Wrapper
+📁 src/main.py
+import argparse
+from services.billing import apply_billing
+
+def main():
+    parser = argparse.ArgumentParser(description="Automate tenant billing")
+    parser.add_argument("file", help="Path to Excel file")
+    args = parser.parse_args()
+
+    apply_billing(args.file)
+
+if __name__ == "__main__":
+    main()
+
+
+Run it like this:
+python src/main.py data/tenants.xlsx
+
+
+
+⏰ Step 3: Schedule It (Two Options)
+Option A: GitHub Actions
+Automate billing weekly or on push.
+name: Weekly Billing
+
+on:
+  schedule:
+    - cron: '0 9 * * MON'  # Every Monday at 9 AM
+
+jobs:
+  run-billing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install openpyxl
+      - name: Run billing
+        run: python src/main.py data/tenants.xlsx
+
+
+Option B: Local Cron Job (Linux/macOS)
+crontab -e
+
+
+Add:
+0 9 * * MON /path/to/venv/bin/python /path/to/src/main.py /path/to/data/tenants.xlsx
+
+
+
+✅ Your Task
+- Refactor your billing logic into billing.py
+- Add a CLI wrapper in main.py
+- Choose GitHub Actions or cron to automate it
